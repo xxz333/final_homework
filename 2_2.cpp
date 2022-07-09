@@ -316,12 +316,12 @@ void handle_one(unsigned int* k1, unsigned int* k2, int n_bei, bool& judge1, boo
     int j;
     for(j=0;j+8<bin_col_num;j+=8)
     {
-        __m256i v_k1=_mm_loadu_si256((__m256i*)(k1+j));
-        __m256i v_k2=_mm_loadu_si256((__m256i*)(k2+j));
+        __m256i v_k1=_mm256_loadu_si256((__m256i*)(k1+j));
+        __m256i v_k2=_mm256_loadu_si256((__m256i*)(k2+j));
         //对位异或
-        v_k2=_mm_xor_si256(v_k1,v_k2);
+        v_k2=_mm256_xor_si256(v_k1,v_k2);
         //将数据从向量寄存器存储到内存
-        _mm_storeu_si256((__m256i*)(k2+j),v_k2);
+        _mm256_storeu_si256((__m256i*)(k2+j),v_k2);
     }
     for(;j<bin_col_num;j++)
         k2[j]=k1[j]^k2[j];
